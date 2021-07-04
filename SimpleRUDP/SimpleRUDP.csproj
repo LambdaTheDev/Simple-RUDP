@@ -38,6 +38,7 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="Channels\ChannelId.cs" />
         <Compile Include="Channels\IChannel.cs" />
         <Compile Include="Channels\Reliable\ReliableChannel.cs" />
         <Compile Include="Channels\SemiReliable\SemiReliable.cs" />
@@ -45,6 +46,10 @@
         <Compile Include="Client.cs" />
         <Compile Include="Common.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="Protocol\PacketIds.cs" />
+        <Compile Include="Protocol\PacketListener.cs" />
+        <Compile Include="Protocol\PacketSender.cs" />
+        <Compile Include="Protocol\PacketStructs.cs" />
         <Compile Include="Server.cs" />
         <Compile Include="Utils\BitPacker.cs" />
     </ItemGroup>
