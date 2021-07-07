@@ -43,15 +43,22 @@
         <Compile Include="Channels\Reliable\ReliableChannel.cs" />
         <Compile Include="Channels\SemiReliable\SemiReliable.cs" />
         <Compile Include="Channels\Unreliable\UnreliableChannel.cs" />
-        <Compile Include="Client.cs" />
-        <Compile Include="Common.cs" />
+        <Compile Include="Exceptions\PeerAlreadyUsedException.cs" />
+        <Compile Include="Exceptions\PeerNotReadyException.cs" />
+        <Compile Include="Peers\Client.cs" />
+        <Compile Include="Peers\Peer.cs" />
+        <Compile Include="Peers\PeerState.cs" />
+        <Compile Include="Peers\RemotePeer.cs" />
+        <Compile Include="Peers\Server.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
         <Compile Include="Protocol\PacketIds.cs" />
-        <Compile Include="Protocol\PacketListener.cs" />
-        <Compile Include="Protocol\PacketSender.cs" />
         <Compile Include="Protocol\PacketStructs.cs" />
-        <Compile Include="Server.cs" />
+        <Compile Include="Protocol\Wrapper\IncomingPacketWrapper.Client.cs" />
+        <Compile Include="Protocol\Wrapper\IncomingPacketWrapper.Server.cs" />
+        <Compile Include="Protocol\Wrapper\OutgoingPacketWrapper.Client.cs" />
+        <Compile Include="Protocol\Wrapper\OutgoingPacketWrapper.Server.cs" />
         <Compile Include="Utils\BitPacker.cs" />
+        <Compile Include="Utils\ThreadSafeDictionary.cs" />
     </ItemGroup>
     <ItemGroup>
       <Content Include="THANKS-TO.txt" />
