@@ -4,11 +4,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following 
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Simple_RUDP")]
-[assembly: AssemblyDescription("Simple RUDP implementation in C#")]
+[assembly: AssemblyTitle("SimpleRUDP")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("Simple_RUDP")]
+[assembly: AssemblyProduct("SimpleRUDP")]
 [assembly: AssemblyCopyright("Copyright ©  2021")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -19,7 +19,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // The following GUID is for the ID of the typelib if this project is exposed to COM
-[assembly: Guid("03EED0F1-6517-4DF2-9A7C-B1B9B2FBE8ED")]
+[assembly: Guid("EA0803A8-2396-4442-A21F-2E60362B459E")]
 
 // Version information for an assembly consists of the following four values:
 //

@@ -4,11 +4,11 @@
     <PropertyGroup>
         <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
         <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-        <ProjectGuid>{03EED0F1-6517-4DF2-9A7C-B1B9B2FBE8ED}</ProjectGuid>
+        <ProjectGuid>{EA0803A8-2396-4442-A21F-2E60362B459E}</ProjectGuid>
         <OutputType>Library</OutputType>
         <AppDesignerFolder>Properties</AppDesignerFolder>
-        <RootNamespace>Simple_RUDP</RootNamespace>
-        <AssemblyName>Simple_RUDP</AssemblyName>
+        <RootNamespace>SimpleRUDP</RootNamespace>
+        <AssemblyName>SimpleRUDP</AssemblyName>
         <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
         <FileAlignment>512</FileAlignment>
     </PropertyGroup>
@@ -38,30 +38,17 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Channels\ChannelId.cs" />
-        <Compile Include="Channels\IChannel.cs" />
-        <Compile Include="Channels\Reliable\ReliableChannel.cs" />
-        <Compile Include="Channels\SemiReliable\SemiReliable.cs" />
-        <Compile Include="Channels\Unreliable\UnreliableChannel.cs" />
-        <Compile Include="Exceptions\PeerAlreadyUsedException.cs" />
-        <Compile Include="Exceptions\PeerNotReadyException.cs" />
-        <Compile Include="Peers\Client.cs" />
-        <Compile Include="Peers\Peer.cs" />
-        <Compile Include="Peers\PeerState.cs" />
-        <Compile Include="Peers\RemotePeer.cs" />
-        <Compile Include="Peers\Server.cs" />
+        <Compile Include="Client.cs" />
+        <Compile Include="Exceptions\PeerUsedException.cs" />
+        <Compile Include="Peer.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Protocol\PacketIds.cs" />
-        <Compile Include="Protocol\PacketStructs.cs" />
-        <Compile Include="Protocol\Wrapper\IncomingPacketWrapper.Client.cs" />
-        <Compile Include="Protocol\Wrapper\IncomingPacketWrapper.Server.cs" />
-        <Compile Include="Protocol\Wrapper\OutgoingPacketWrapper.Client.cs" />
-        <Compile Include="Protocol\Wrapper\OutgoingPacketWrapper.Server.cs" />
-        <Compile Include="Utils\BitPacker.cs" />
-        <Compile Include="Utils\ThreadSafeDictionary.cs" />
+        <Compile Include="Protocol\Header.cs" />
+        <Compile Include="Protocol\PacketId.cs" />
+        <Compile Include="Server.cs" />
+        <Compile Include="States\PeerState.cs" />
     </ItemGroup>
     <ItemGroup>
-      <Content Include="THANKS-TO.txt" />
+      <Folder Include="Channels" />
     </ItemGroup>
     <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
     <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

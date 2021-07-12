@@ -42,7 +42,8 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ConnectionTest.cs" />
+        <Compile Include="ChecksIfWorking\ByteArrayNonPbrTest.cs" />
+        <Compile Include="ChecksIfWorking\EndListeningTaskWhenStoppingPeerTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

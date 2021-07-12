@@ -1,10 +1,10 @@
-﻿namespace Simple_RUDP.Peers
+﻿namespace SimpleRUDP.States
 {
     public enum PeerState : byte
     {
-        Disconnected,
-        Disconnecting,
+        Offline,
         Connecting,
         Connected,
+        Disconnecting,
     }
 }
