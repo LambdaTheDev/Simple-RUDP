@@ -8,4 +8,5 @@ I wanted to learn how does RUDP (Reliable UDP) work and started designing low le
 - Reliable ordered (TCP simulation)
 
 # Notes
-Remember it's still WIP.
+- This thing is in WIP state.
+- Do NOT use in production/real apps. This is made ONLY for learning proposes. Sometimes I do bad practises to simplify the code. Feel free to inspire yourself with this in your own library, but you USE it on your own responsibility. You have been warned.

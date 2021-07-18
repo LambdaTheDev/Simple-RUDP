@@ -18,17 +18,20 @@ namespace SimpleRUDP
         protected Thread ReceivingThread; // Thread used to receive datagrams, kept to abort it on stop 
         protected bool Stopping; // This is true, when Peer is being stopped & is preparing for clean-up
 
+        public event Action PeerStartedEvent; // Called when peer successfully starts
+        public event Action PeerStoppingEvent; // Called when peer begins stopping (on server, before disconnecting clients)
+        public event Action PeerStoppedEvent; // Called when peer is successfully stopped
+        
         protected event Action PeerStartedListeningEvent; // Invoked when Peer starts listening
         protected event Action PeerStoppedListeningEvent; // Invoked when Peer stops listening
         
 
         // Constructor
-        public Peer(bool isClient)
+        protected Peer(bool isClient)
         {
             IsClient = isClient;
         }
 
-        
         // Here Peers implement logic for sending raw datagrams
         protected abstract void SendRawDatagram(IPEndPoint receiver, byte[] datagram, int offset, int length);
         
@@ -76,5 +79,26 @@ namespace SimpleRUDP
             Stopping = true;
             ReceivingThread.Abort();
         }
+
+        #region Event invokers
+
+        // You can't invoke event from outside class, so I made those protected classes to call some Peer events
+
+        protected void InvokePeerStarted()
+        {
+            PeerStartedEvent?.Invoke();
+        }
+
+        protected void InvokePeerStopping()
+        {
+            PeerStoppingEvent?.Invoke();
+        }
+
+        protected void InvokePeerStopped()
+        {
+            PeerStoppedEvent?.Invoke();
+        }
+
+        #endregion
     }
 }

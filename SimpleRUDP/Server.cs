@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
 using SimpleRUDP.Exceptions;
+using SimpleRUDP.Protocol;
 using SimpleRUDP.States;
 
 namespace SimpleRUDP
@@ -11,13 +12,10 @@ namespace SimpleRUDP
     {
         private Dictionary<int, RemotePeer> _connectedPeers;
         private int _maxClients;
-
-        public event Action ServerStartedEvent; // Called when server successfully starts
-        public event Action ServerStoppingEvent; // Called when server begins stopping (before disconnecting clients)
-        public event Action ServerStoppedEvent; // Called when server successfully stops
-        public event Action<int> PeerConnectedEvent; // Called when remote peer connects | args: PeerId
-        public event Action<int> PeerDisconnectedEvent; // Called when remote peer disconnects | args: PeerId
-        public event Action<int, byte[], int, int> PeerDataReceivedEvent; // Called when remote peer sends data | args: PeerId, Buffer, Offset, Length
+        
+        public event Action<int> ConnectedToServerEvent; // Called when remote peer connects | args: PeerId
+        public event Action<int> DisconnectedFromServerEvent; // Called when remote peer disconnects | args: PeerId
+        public event Action<int, byte[], int, int> DataReceivedFromClientEvent; // Called when remote peer sends data | args: PeerId, Buffer, Offset, Length
 
         public Server() : base(false) { }
         
@@ -33,7 +31,7 @@ namespace SimpleRUDP
             State = PeerState.Connected;
 
             StartListening();
-            ServerStartedEvent?.Invoke();
+            InvokePeerStarted();
         }
 
         // Method that stops server peer
@@ -41,19 +39,21 @@ namespace SimpleRUDP
         {
             if (State == PeerState.Offline || State == PeerState.Disconnecting) return;
             State = PeerState.Disconnecting;
-            ServerStoppingEvent?.Invoke();
+            InvokePeerStopping();
             
             // todo: Send reliable Disconnection packet to all peers, async operation 
             
-            ServerStoppedEvent?.Invoke();
+            InvokePeerStopped();
         }
 
+        // Throws PeerUsedException if Peer isn't offline (so it's already running)
         private void ThrowIfCantStart()
         {
             if(State != PeerState.Offline)
                 throw new PeerUsedException();
         }
 
+        // Sends buffer to peer identified by peerId
         public void Send(int peerId, byte[] buffer, int offset, int length)
         {
             if (_connectedPeers.TryGetValue(peerId, out RemotePeer peer))
@@ -62,13 +62,32 @@ namespace SimpleRUDP
                 SendRawDatagram(peer.EndPoint, buffer, offset, length);
             }
         }
-        
-        
-        protected override void SendRawDatagram(IPEndPoint receiver, byte[] datagram, int offset, int length)
-        { }
 
+        // Sending raw datagram to receiver. Does it really need to be abstract?
+        protected override void SendRawDatagram(IPEndPoint receiver, byte[] datagram, int offset, int length)
+        {
+            Udp.Send(datagram, length, receiver);
+        }
+
+        // Actions when datagram was received 
         protected override void ReceiveRawDatagram(IPEndPoint sender, byte[] datagram)
-        { }
+        {
+            Console.WriteLine("RECEIVED DATAGRAM: " + BitConverter.ToString(datagram));
+            
+            // Rn simple if else, handshake testing proposes
+            if (datagram[0] == (byte) PacketId.ClientHandshakeRequest)
+            {
+                // Yeah, allocations. As mentioned above - just testing proposes, no more :P
+                byte[] response = new byte[4];
+                response[0] = (byte) PacketId.ServerHandshakeAck; // Header
+                response[1] = datagram[1]; // First byte of ID
+                response[2] = datagram[2]; // Second one
+                response[3] = (byte) (_connectedPeers.Count + 1 > _maxClients ? 0 : 1);
+                
+                SendRawDatagram(sender, response, 0, 4);
+                Console.WriteLine("New client wants to connect with ID: " + BitConverter.ToInt16(datagram, 1));
+            }
+        }
     }
 
     internal struct RemotePeer
