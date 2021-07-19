@@ -42,11 +42,8 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="ChecksIfWorking\ByteArrayNonPbrTest.cs" />
-        <Compile Include="ChecksIfWorking\EndListeningTaskWhenStoppingPeerTest.cs" />
-        <Compile Include="ChecksIfWorking\ThreadTerminationDuringTask.cs" />
-        <Compile Include="PeerTests\SimpleConnectionTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
+        <Compile Include="UnrelatedTests\InvalidEnumCastResultTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\SimpleRUDP\SimpleRUDP.csproj">
