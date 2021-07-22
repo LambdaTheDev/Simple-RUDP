@@ -59,12 +59,12 @@ namespace SimpleRUDP.Peers.Server
                 throw new PeerAlreadyUsedException();
         }
 
-        // Sends buffer to peer (by their peer ID). Todo: implement channels
-        public void Send(int peerId, byte[] buffer, int length, byte channel)
+        // Sends buffer to peer (by their peer ID).
+        public void Send(int peerId, byte[] buffer, int length, ChannelId channel)
         {
             if (_connectedPeers.TryGetValue(peerId, out RemotePeer peer))
             {
-                peer.Channels[channel].Send(buffer, length, peer.TargetEndPoint);
+                peer.Channels[(byte) channel].Send(buffer, length, peer.TargetEndPoint);
             }
         }
 
@@ -74,6 +74,9 @@ namespace SimpleRUDP.Peers.Server
             return Udp;
         }
 
+        
+        
+        
         // Here we pass datagram to channels, so they can properly handle them
         public override void OnRawDataReceived(byte[] datagram, IPEndPoint sender)
         {
@@ -102,6 +105,11 @@ namespace SimpleRUDP.Peers.Server
             else return;
             
             channel.Handle(datagram, 2, sender);
+        }
+
+        public override void SendRawDatagram(byte[] datagram, int length, IPEndPoint target)
+        {
+            Udp.Send(datagram, length, target);
         }
 
         public override void InvokeDataReceived(byte[] data, int offset, IRawPeer from)

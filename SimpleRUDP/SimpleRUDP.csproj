@@ -42,6 +42,7 @@
         <Compile Include="Channels\ChannelBuffer.cs" />
         <Compile Include="Channels\ChannelId.cs" />
         <Compile Include="Channels\System\SystemChannel.cs" />
+        <Compile Include="Channels\Unreliable\UnreliableChannel.cs" />
         <Compile Include="Exceptions\PeerAlreadyUsedException.cs" />
         <Compile Include="Peers\Client\Client.cs" />
         <Compile Include="Peers\Client\Client.Handshake.cs" />

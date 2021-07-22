@@ -8,6 +8,7 @@ namespace SimpleRUDP.Peers.Client
     {
         public override void HandleDataPacket(byte[] buffer, int offset, int length, IPEndPoint sender)
         {
+            Console.WriteLine("Data packet");
         }
 
         public override void HandleInternalPacket(byte[] buffer, int offset, int length, IPEndPoint sender)

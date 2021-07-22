@@ -45,10 +45,7 @@ namespace SimpleRUDP.Peers
         
         // No need for abstract, it just sends UDP datagram. High level methods are
         // used for channels and stuff
-        public void SendRawDatagram(byte[] datagram, int length, IPEndPoint target)
-        {
-            Udp.Send(datagram, length, target);
-        }
+        public abstract void SendRawDatagram(byte[] datagram, int length, IPEndPoint target);
 
         public abstract void HandleDataPacket(byte[] buffer, int offset, int length, IPEndPoint sender);
         public abstract void HandleInternalPacket(byte[] buffer, int offset, int length, IPEndPoint sender);

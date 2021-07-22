@@ -1,5 +1,6 @@
 ﻿using System.Net;
 using SimpleRUDP.Channels.System;
+using SimpleRUDP.Channels.Unreliable;
 using SimpleRUDP.Peers;
 
 namespace SimpleRUDP.Channels
@@ -31,6 +32,7 @@ namespace SimpleRUDP.Channels
             Channel[] channels = new Channel[5]; // Channels count
             
             channels[(byte) ChannelId.ReliableUnorderedUnefficient] = new SystemChannel(peer);
+            channels[(byte) ChannelId.Unreliable] = new UnreliableChannel(peer);
 
             return channels;
         }

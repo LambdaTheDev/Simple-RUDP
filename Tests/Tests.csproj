@@ -43,6 +43,7 @@
     </ItemGroup>
     <ItemGroup>
         <Compile Include="PeerTests\ClientServerConnectionTest.cs" />
+        <Compile Include="PeerTests\DataTransportTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
     </ItemGroup>
     <ItemGroup>

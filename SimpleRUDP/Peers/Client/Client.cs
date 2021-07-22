@@ -14,6 +14,8 @@ namespace SimpleRUDP.Peers.Client
     {
         private static readonly RNGCryptoServiceProvider Rng = new RNGCryptoServiceProvider();
 
+        private IPEndPoint _serverEndPoint;
+        
         public event Action ConnectedToServerEvent; // Called when client successfully connects to server
         public event Action DisconnectedFromServerEvent; // Called when client successfully disconnects from server
         public event Action<byte[], int, int> DataReceivedFromServerEvent; // Called when server sends data | args: Buffer, Offset, Length 
@@ -25,8 +27,10 @@ namespace SimpleRUDP.Peers.Client
 
             State = PeerState.Connecting;
             
+            _serverEndPoint = new IPEndPoint(IPAddress.Parse(ip), port);
             Udp = new UdpClient();
-            Udp.Connect(ip, port);
+            Udp.Connect(_serverEndPoint);
+            
             IsListening = true;
             InvokePeerStarted();
             
@@ -51,7 +55,11 @@ namespace SimpleRUDP.Peers.Client
             DisconnectedFromServerEvent?.Invoke();
         }
         
-        
+        // Sends buffer to server
+        public void Send(byte[] buffer, int length, ChannelId channel)
+        {
+            Channels[(byte) channel].Send(buffer, length, (IPEndPoint) Udp.Client.RemoteEndPoint);
+        }
         
         public override void OnRawDataReceived(byte[] datagram, IPEndPoint sender)
         {
@@ -67,6 +75,11 @@ namespace SimpleRUDP.Peers.Client
             Channel channel = Channels[datagram[1]];
          
             channel.Handle(datagram, 2, sender);
+        }
+
+        public override void SendRawDatagram(byte[] datagram, int length, IPEndPoint target)
+        {
+            Udp.Send(datagram, length);
         }
 
         public override void InvokeDataReceived(byte[] data, int offset, IRawPeer from)

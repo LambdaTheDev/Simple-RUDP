@@ -34,12 +34,20 @@ namespace SimpleRUDP.Channels.System
                     // if too much attempts
                     foreach (var unackedPacket in _unackedPackets)
                     {
-                        PacketInstance packet = unackedPacket.Value;
-                        BoundPeer.SendRawDatagram(packet.Datagram, packet.Datagram.Length, packet.Receiver);
-                        packet.Attempts++;
+                        BoundPeer.SendRawDatagram(unackedPacket.Value.Datagram, unackedPacket.Value.Datagram.Length, unackedPacket.Value.Receiver);
+                        unackedPacket.Value.Attempts++;
 
-                        if (packet.Attempts > RetryAttempts)
+                        if (unackedPacket.Value.Attempts > RetryAttempts)
                             _unackedPackets.Remove(unackedPacket.Key);
+                        
+                        
+                        //
+                        // PacketInstance packet = unackedPacket.Value;
+                        // BoundPeer.SendRawDatagram(packet.Datagram, packet.Datagram.Length, packet.Receiver);
+                        // packet.Attempts++;
+                        //
+                        // if (packet.Attempts > RetryAttempts)
+                        //     _unackedPackets.Remove(unackedPacket.Key);
                     }
                 }
             });
