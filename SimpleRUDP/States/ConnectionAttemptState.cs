@@ -1,9 +1,10 @@
 ﻿namespace SimpleRUDP.States
 {
-    public enum ConnectionAttemptState
+    public enum ConnectionAttemptState : byte
     {
-        Success,
+        Connected,
         ServerRejected,
         ServerUnreachable,
+        PeerAlreadyUsed,
     }
 }

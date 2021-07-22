@@ -1,10 +1,11 @@
 ﻿namespace SimpleRUDP.States
 {
+    // Represents current state of peer
     public enum PeerState : byte
     {
-        Offline,
-        Connecting,
-        Connected,
-        Disconnecting,
+        Disconnected, // Offline
+        Connecting, // Peer has started & wants to connect
+        Connected, // Peer has successfully established connection
+        Disconnecting, // Peer started disconnecting
     }
 }

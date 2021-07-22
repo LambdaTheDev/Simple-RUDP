@@ -38,13 +38,23 @@
         <Reference Include="System.Xml" />
     </ItemGroup>
     <ItemGroup>
-        <Compile Include="Client.cs" />
-        <Compile Include="Exceptions\PeerUsedException.cs" />
-        <Compile Include="Peer.cs" />
+        <Compile Include="Channels\Channel.cs" />
+        <Compile Include="Channels\ChannelBuffer.cs" />
+        <Compile Include="Channels\ChannelId.cs" />
+        <Compile Include="Channels\System\SystemChannel.cs" />
+        <Compile Include="Exceptions\PeerAlreadyUsedException.cs" />
+        <Compile Include="Peers\Client\Client.cs" />
+        <Compile Include="Peers\Client\Client.Handshake.cs" />
+        <Compile Include="Peers\Client\Client.PacketHandler.cs" />
+        <Compile Include="Peers\IRawPeer.cs" />
+        <Compile Include="Peers\LocalPeer.cs" />
+        <Compile Include="Peers\Remote\RemotePeer.cs" />
+        <Compile Include="Peers\Remote\RemotePeer.PacketHandler.cs" />
+        <Compile Include="Peers\Server\Server.cs" />
+        <Compile Include="Peers\Server\Server.Handshake.cs" />
+        <Compile Include="Peers\Server\Server.PacketHandler.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="Protocol\Header.cs" />
         <Compile Include="Protocol\PacketId.cs" />
-        <Compile Include="Server.cs" />
         <Compile Include="States\ConnectionAttemptState.cs" />
         <Compile Include="States\PeerState.cs" />
     </ItemGroup>
