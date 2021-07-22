@@ -42,8 +42,8 @@
         </Reference>
     </ItemGroup>
     <ItemGroup>
+        <Compile Include="PeerTests\ClientServerConnectionTest.cs" />
         <Compile Include="Properties\AssemblyInfo.cs" />
-        <Compile Include="UnrelatedTests\InvalidEnumCastResultTest.cs" />
     </ItemGroup>
     <ItemGroup>
       <ProjectReference Include="..\SimpleRUDP\SimpleRUDP.csproj">
